@@ -1,0 +1,2 @@
+scikit-learn libraries are imported during the development
+    python -m pip install scikit-learn
