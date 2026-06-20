@@ -22,7 +22,6 @@ We selected **Recall (True Positive Rate)** and **ROC-AUC** as our primary evalu
 ---
 
 ## Project Structure
-```text
 compare_classifier_models/
 │
 ├── data/
