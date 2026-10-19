@@ -1,50 +1,111 @@
-# Classification Model Evaluation & Comparison Strategy
+# Capstone Assignment: Comparative Analysis of Classification Models
 
-## Overview
-This repository provides a framework and structured evaluation tool for comparing classification machine learning models (Logistic Regression, Decision Trees, K-Nearest Neighbors, and Support Vector Machines) across varied problem contexts—specifically customer churn prediction and handwritten digit recognition.
+## 1. Executive Summary & Overview
+
+This project provides a comprehensive comparative evaluation of four fundamental machine learning classification algorithms:
+* **Logistic Regression**
+* **Decision Trees**
+* **K-Nearest Neighbors (KNN)**
+* **Support Vector Machines (SVM)**
+
+The study evaluates these algorithms across two distinct machine learning tasks—**Customer Churn Prediction** (imbalanced binary classification) and **Handwritten Digit Recognition** (multiclass image classification)—to determine optimal model selection based on performance, speed, interpretability, and class imbalance handling.
 
 ---
 
-## Workspace Structure
+## 2. Problem Statement & Research Questions
+
+### Research Question
+> **How do Logistic Regression, Decision Trees, KNN, and SVM compare in terms of predictive performance, computational efficiency, interpretability, and ability to handle class imbalance across customer churn prediction and handwritten digit recognition tasks?**
+
+### Domain Contexts
+* **Use Case 1: Customer Churn Prediction** (`telecom_churn.csv`)  
+  Predict whether a telecom customer is likely to leave the service using behavioral and demographic variables.
+* **Use Case 2: Handwritten Digit Recognition** (`sklearn.datasets.load_digits`)  
+  Classify images of handwritten digits ($0–9$) using $8 \times 8$ pixel intensity values ($64$ feature dimensions).
+
+---
+
+## 3. Business Goals & Objectives
+
+The goal is to establish a clear decision framework for model selection by balancing prediction quality, resource constraints, and explainability.
+
+* **Customer Retention:** Identify at-risk customers early to enable proactive, targeted retention campaigns.
+* **Pattern Recognition:** Demonstrate effective image classification across non-linear multi-dimensional vector spaces.
+* **Model Trade-off Analysis:** Quantify the operational trade-offs between predictive accuracy, training/inference speed, and model interpretability.
+
+---
+
+## 4. Dataset Overview
+
+| Dataset | Source | Characteristics | Target Variable | Type |
+| :--- | :--- | :--- | :--- | :--- |
+| **Telecom Customer Churn** | `telecom_churn.csv` | Customer demographics & usage metrics; skewed distribution | `Churn` (True / False) | Imbalanced Binary |
+| **Handwritten Digits** | `sklearn.datasets.load_digits` | 1,797 samples, 64 numerical pixel features ($8 \times 8$ matrix) | `Digit` ($0$ through $9$) | Balanced Multiclass |
+
+### Data Pipeline & Preprocessing Workflow
+1. **Exploration & Cleaning:** Load datasets, check for missing values, and analyze target class distributions.
+2. **Data Partitioning:** Split data into training and test sets.
+3. **Feature Scaling:** Apply standard scaling (`StandardScaler`), critical for distance- and margin-based algorithms (KNN, SVM, Logistic Regression).
+4. **Evaluation:** Compute appropriate metrics for binary classification (Precision, Recall, F1-Score, ROC-AUC) and multiclass classification (Accuracy, Macro/Weighted F1).
+
+---
+
+## 5. Summary of Recommended Models
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       Model Selection Strategy                          │
+├──────────────────────────────┬──────────────────────────────────────────┤
+│ Customer Churn               │ Handwritten Digit Recognition            │
+│ (Imbalanced Binary)          │ (Multiclass Image Data)                  │
+├──────────────────────────────┼──────────────────────────────────────────┤
+│ 🏆 Logistic Regression /     │ 🏆 Support Vector Machine (SVM, RBF) /   │
+│    Decision Trees            │    K-Nearest Neighbors (KNN)             │
+│                              │                                          │
+│ • High interpretability      │ • High accuracy in non-linear vector     │
+│ • Calibrated probabilities   │   spaces                                 │
+│ • Supports class weighting   │ • Feature interpretability is secondary  │
+└──────────────────────────────┴──────────────────────────────────────────┘
+```
+
+---
+
+## 6. Repository Structure
 
 ```
 .
 ├── Compare_model.ipynb         # Main exploration notebook analyzing model trade-offs
 ├── CapstoneEvaluation.ipynb    # Rigorous capstone rubric evaluation document
-└── README.md                   # Project overview and usage guidelines
+└── README.md                   # Project overview and documentation
 ```
 
 ---
 
-## Evaluation Criteria
+## 7. Getting Started
 
-Models are evaluated against three main core criteria depending on domain requirements:
+### Prerequisites
 
-1. **Handling Class Imbalance:** Ability to manage skewed class distributions without over-predicting the majority class (crucial for churn analysis).
-2. **Training and Inference Speed:** Scalability and execution efficiency during model training and real-time prediction.
-3. **Interpretability & Explainability:** Ability to extract feature importance, decision boundaries, or odds ratios to explain predictions to business stakeholders.
+Ensure you have Python 3.8+ installed along with the required libraries:
 
----
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
 
-## Task Summaries
+### Quick Start
 
-### Task 1: Customer Churn Prediction (`telecom_churn.csv`)
-* **Problem Type:** Imbalanced Binary Classification.
-* **Primary Objective:** Identify customers at risk of leaving while understanding key behavioral drivers.
-* **Top Recommended Model:** **Logistic Regression** (or regularized Tree Ensembles/Decision Trees for non-linear thresholds) due to high interpretability, calibrated probability outputs, and class-weight balancing support.
-
-### Task 2: Handwritten Digit Recognition (`load_digits`)
-* **Problem Type:** Multi-class Image/Feature Classification (10 classes).
-* **Primary Objective:** High classification accuracy across multi-dimensional feature space.
-* **Top Recommended Model:** **Support Vector Machines (SVM with RBF kernel)** or **K-Nearest Neighbors (KNN)** due to superior boundary optimization in non-linear vector spaces where direct feature interpretability is secondary.
-
----
-
-## How to Run
-
-1. Clone or download the repository.
-2. Ensure you have Jupyter Notebook or JupyterLab installed along with key dependencies:
+1. **Clone the repository:**
    ```bash
-   pip install pandas numpy matplotlib scikit-learn
+   git clone <repository-url>
+   cd <repository-folder>
    ```
-3. Open `Compare_model.ipynb` to view the analysis code or `CapstoneEvaluation.ipynb` for the comprehensive model critique.
+
+2. **Launch Jupyter Environment:**
+   ```bash
+   jupyter lab
+   # or
+   jupyter notebook
+   ```
+
+3. **Run Analysis:**
+   * Open `Compare_model.ipynb` to view feature engineering, model training, and performance metrics.
+   * Open `CapstoneEvaluation.ipynb` for the detailed model evaluation against the project rubric.
